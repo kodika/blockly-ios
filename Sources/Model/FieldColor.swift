@@ -47,21 +47,25 @@ An input field for a color value.
     return FieldColor(name: name, color: color)
   }
 
-  public override func setValueFromSerializedText(_ text: String) throws {
-    if let color = ColorHelper.makeColor(rgb: text) {
-      self.color = color
-    } else {
-      throw BlocklyError(.xmlParsing,
-        "Could not parse '\(text)' into a color. The value must be of the form '#RRGGBB'.")
+    public override func setValueFromSerializedText(_ text: String) throws {
+        let alphaHex = text.dropFirst(7)
+        let alpha : CGFloat = CGFloat(UInt8(alphaHex, radix: 16)!) / 255.0
+        
+        if let color = ColorHelper.makeColor(rgb: String(text.dropLast(2)), alpha: alpha) {
+            self.color = color
+        } else {
+            throw BlocklyError(.xmlParsing,
+                               "Could not parse '\(text)' into a color. The value must be of the form '#RRGGBB'.")
+        }
     }
-  }
-
-  public override func serializedText() throws -> String? {
-    // Returns a string of the form "#rrggbb"
-    let rgba = self.color.bky_rgba()
-    return String(format: "#%02x%02x%02x", arguments: [
-      UInt(round(rgba.red * 255)),
-      UInt(round(rgba.green * 255)),
-      UInt(round(rgba.blue * 255))])
-  }
+    
+    public override func serializedText() throws -> String? {
+        // Returns a string of the form "#rrggbb"
+        let rgba = self.color.bky_rgba()
+        return String(format: "#%02x%02x%02x%02x", arguments: [
+            UInt(round(rgba.red * 255)),
+            UInt(round(rgba.green * 255)),
+            UInt(round(rgba.blue * 255)),
+            UInt(round(rgba.alpha * 255))])
+    }
 }
