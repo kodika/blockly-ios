@@ -48,6 +48,7 @@ import Foundation
     registerLayoutType(FieldDateLayout.self, withViewType: FieldDateView.self)
     registerLayoutType(FieldDropdownLayout.self, withViewType: FieldDropdownView.self)
     registerLayoutType(FieldImageLayout.self, withViewType: FieldImageView.self)
+    registerLayoutType(FieldImageAssetLayout.self, withViewType: FieldImageAssetView.self)
     registerLayoutType(FieldInputLayout.self, withViewType: FieldInputView.self)
     registerLayoutType(FieldLabelLayout.self, withViewType: FieldLabelView.self)
     registerLayoutType(FieldNumberLayout.self, withViewType: FieldNumberView.self)

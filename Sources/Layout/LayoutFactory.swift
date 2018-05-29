@@ -96,7 +96,12 @@ import Foundation
       return FieldImageLayout(
         fieldImage: field as! FieldImage, engine: engine, measurer: FieldImageView.self)
     }
-
+    
+    registerFieldLayoutCreator(forType: FieldImageAsset.self) { field, engine in
+        return FieldImageAssetLayout(
+            fieldImageAsset: field as! FieldImageAsset, engine: engine, measurer: FieldImageAssetView.self)
+    }
+    
     registerFieldLayoutCreator(forType: FieldInput.self) { field, engine in
       return FieldInputLayout(
         fieldInput: field as! FieldInput, engine: engine, measurer: FieldInputView.self)
