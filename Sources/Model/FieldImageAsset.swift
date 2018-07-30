@@ -7,8 +7,8 @@
 
 import Foundation
 
-@objc(BKYFieldImageAssetLooader)
-public protocol FieldImageAssetLooader: class {
+@objc(BKYFieldImageAssetLoader)
+public protocol FieldImageAssetLoader: class {
     func loadImage(uniqueId: String? ,completion: @escaping ((_ image: UIImage?) -> Void))
 }
 
@@ -34,7 +34,7 @@ public protocol FieldImageAssetLooader: class {
     open var defaultImage : UIImage
     
     /// Loader to be used to load image from imageAsset `uniqueId`
-    weak open var imageAssetLoader : FieldImageAssetLooader?
+    weak open var imageAssetLoader : FieldImageAssetLoader?
     
     // MARK: - Initializers
     
@@ -50,7 +50,7 @@ public protocol FieldImageAssetLooader: class {
      rendering.
      */
     public init(
-        name: String, defaultImage: UIImage, size: WorkspaceSize, imageAssetLoader: FieldImageAssetLooader?) {
+        name: String, defaultImage: UIImage, size: WorkspaceSize, imageAssetLoader: FieldImageAssetLoader?) {
         self.defaultImage = defaultImage
         self.imageAssetLoader = imageAssetLoader
         self.size = size
