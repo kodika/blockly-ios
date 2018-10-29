@@ -31,6 +31,7 @@ extension Field {
   fileprivate static let FIELD_TYPE_LABEL = "field_label"
   fileprivate static let FIELD_TYPE_NUMBER = "field_number"
   fileprivate static let FIELD_TYPE_VARIABLE = "field_variable"
+  fileprivate static let FIELD_TYPE_ARGUMENT = "field_argument"
 
   // JSON parameters
   fileprivate static let PARAMETER_ALT_TEXT = "alt"
@@ -223,6 +224,14 @@ extension Field {
           name: (json[PARAMETER_NAME] as? String ?? "NAME"),
           variable: (Block.decodedJSONValue(json[PARAMETER_VARIABLE]) as? String ?? "item"))
       }
+        
+        registerType(FIELD_TYPE_ARGUMENT) {
+            (json: [String: Any]) throws -> Field in
+            return FieldArgument(
+                name: (json[PARAMETER_NAME] as! String),
+                text: (json[PARAMETER_TEXT] as! String ),
+                methodUniqueIdentifier: json["methodUniqueIdentifier"] as! String)
+        }
     }
 
     // MARK: - Public

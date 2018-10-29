@@ -71,6 +71,12 @@ import Foundation
       return FieldAngleLayout(
         fieldAngle: field as! FieldAngle, engine: engine, measurer: FieldAngleView.self)
     }
+    
+    registerFieldLayoutCreator(forType: FieldArgument.self) { field, engine in
+        return FieldArgumentLayout(
+            fieldArgument: field as! FieldArgument, engine: engine, measurer: FieldArgumentView.self)
+    }
+    
 
     registerFieldLayoutCreator(forType: FieldCheckbox.self) { field, engine in
       return FieldCheckboxLayout(

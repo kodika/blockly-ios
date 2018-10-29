@@ -43,6 +43,7 @@ import Foundation
 
     // Register the views for known field layouts
     registerLayoutType(FieldAngleLayout.self, withViewType: FieldAngleView.self)
+    registerLayoutType(FieldArgumentLayout.self, withViewType: FieldArgumentView.self)
     registerLayoutType(FieldCheckboxLayout.self, withViewType: FieldCheckboxView.self)
     registerLayoutType(FieldColorLayout.self, withViewType: FieldColorView.self)
     registerLayoutType(FieldDateLayout.self, withViewType: FieldDateView.self)
