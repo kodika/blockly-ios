@@ -51,15 +51,14 @@ Pod::Spec.new do |s|
 
   s.frameworks        = 'WebKit'
   s.ios.dependency 'AEXML', '~> 4.1.0'
-
+  # Let Xcode know Blockly uses Swift 4.0 syntax
+  s.swift_version = '4.0'
+ 
   s.pod_target_xcconfig = {
       # Enable whole-module-optimization for all builds except for Debug builds
       'SWIFT_OPTIMIZATION_LEVEL' => '-Owholemodule',
       'SWIFT_OPTIMIZATION_LEVEL[config=Debug]' => '-Onone',
-
-      # Let Xcode know Blockly uses Swift 4.0 syntax
-      'SWIFT_VERSION' => '4.0',
-
+	  
       # Add DEBUG compiler flag for debug builds
       'OTHER_SWIFT_FLAGS[config=Debug]' => '-D DEBUG',
   }
