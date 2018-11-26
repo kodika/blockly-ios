@@ -31,10 +31,10 @@ public protocol FieldImageAssetLoader: class {
     }
     
     /// Default image to be used when uniqueId is nil
-    open var defaultImage : UIImage
+    public var defaultImage : UIImage
     
     /// Loader to be used to load image from imageAsset `uniqueId`
-    weak open var imageAssetLoader : FieldImageAssetLoader?
+    weak public var imageAssetLoader : FieldImageAssetLoader?
     
     // MARK: - Initializers
     
