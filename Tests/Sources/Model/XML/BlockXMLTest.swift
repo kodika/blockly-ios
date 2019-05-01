@@ -612,7 +612,7 @@ class BlockXMLTest: XCTestCase {
       XCTAssertEqual("field", fieldXML.name)
       XCTAssertEqual(1, fieldXML.attributes.count)
       XCTAssertEqual("colour", fieldXML.attributes["name"])
-      XCTAssertEqual("#ff0000", fieldXML.value)
+      XCTAssertEqual("#ff0000ff", fieldXML.value)
       XCTAssertEqual(0, fieldXML.children.count)
     }
   }

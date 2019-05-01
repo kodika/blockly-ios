@@ -206,7 +206,7 @@ class CodeGeneratorServiceTest: XCTestCase {
       try _codeGeneratorService.generateCode(
         forWorkspace: workspace,
         onCompletion: { _, code in
-          XCTAssertEqual("#abcdef", code)
+          XCTAssertEqual("#abcdefff", code)
           expectation.fulfill()
         }, onError: { _, error in
           XCTFail("Error occurred during code generation: \(error)")
