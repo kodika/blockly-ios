@@ -350,7 +350,7 @@ Component used to create a connection between two `Block` instances.
         if targetSourceBlock == sourceBlock {
           checkResult.formUnion(.ReasonSelfConnection)
         }
-        if targetSourceBlock.shadow {
+        if targetSourceBlock.shadow && !self.isInferior {
           checkResult.formUnion(.ReasonCannotSetShadowForTarget)
         }
       } else {
@@ -372,7 +372,7 @@ Component used to create a connection between two `Block` instances.
     }
 
     if let sourceBlock = self.sourceBlock {
-      if sourceBlock.shadow {
+      if sourceBlock.shadow && self.type != .inputValue {
         checkResult.formUnion(.ReasonCannotSetShadowForTarget)
       }
     } else {
@@ -411,10 +411,6 @@ Component used to create a connection between two `Block` instances.
       {
         if sourceBlock == shadowSourceBlock {
           checkResult.formUnion(.ReasonSelfConnection)
-        }
-        let inferiorBlock = isInferior ? sourceBlock : shadowSourceBlock
-        if !inferiorBlock.shadow {
-          checkResult.formUnion(.ReasonInferiorBlockShadowMismatch)
         }
       }
       if aShadow.type != Connection.OPPOSITE_TYPES[type.rawValue] {

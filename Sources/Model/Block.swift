@@ -138,7 +138,7 @@ public protocol BlockListener: class {
   }
   /// Flag indicating if this block may be dragged by the user
   public var draggable: Bool {
-    return movable && !shadow
+    return movable && (!shadow || (shadow && topLevel))
   }
   /// Flag indicating if this block can be edited. Updating this property automatically updates
   /// the `editable` property on all child fields.

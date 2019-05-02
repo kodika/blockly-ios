@@ -28,7 +28,7 @@ import Foundation
     // Type checking
     let canConnect = moving.canConnectWithReasonTo(candidate)
     guard canConnect.intersectsWith(.CanConnect) ||
-      canConnect.intersectsWith(.ReasonMustDisconnect) else
+      (canConnect.intersectsWith(.ReasonMustDisconnect) && !canConnect.intersectsWith(.ReasonTypeChecksFailed)) else
     {
       return false
     }
@@ -44,10 +44,21 @@ import Foundation
     // an available right (female) value plug.  Don't offer to connect the
     // bottom of a statement block to one that's already connected.
     if candidate.connected &&
-      (candidate.type == .outputValue || candidate.type == .previousStatement) {
-      return false
+        candidate.type == .previousStatement {
+        return false
     }
-
+    if candidate.connected &&
+        !(candidate.targetBlock?.shadow ?? false) &&
+        candidate.type == .outputValue {
+        return false
+    }
+    
+    if candidate.connected &&
+        (candidate.sourceBlock?.shadow ?? false) &&
+        candidate.type == .inputValue {
+        return false
+    }
+    
     return true
   }
 }

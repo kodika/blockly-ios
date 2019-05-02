@@ -42,7 +42,7 @@ class WorkspaceTest: XCTestCase {
       return
     }
 
-    BKYAssertThrow("Cannot add shadow blocks as top-level blocks", errorType: BlocklyError.self) {
+    BKYAssertDoesNotThrow(message: "Allow shadow blocks as top-level blocks") {
       try self._workspace.addBlockTree(shadowBlock)
     }
   }

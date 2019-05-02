@@ -282,11 +282,6 @@ class BlockXMLTest: XCTestCase {
     }
   }
 
-  func testParseXML_BlockWithInvalidNestedShadowBlocks() {
-    let xml = BlockTestStrings.assembleBlock(BlockTestStrings.NESTED_SHADOW_BAD)
-    XCTAssertNil(parseBlockFromXML(xml, factory))
-  }
-
   func testParseXML_BlockWithMutator() {
     // Add DummyMutator to "frankenblock" factory builder
     factory.blockBuilder(forName: "frankenblock")?.extensions = [BlockExtensionClosure { block in

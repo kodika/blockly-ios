@@ -314,26 +314,6 @@ class ConnectionTest: XCTestCase {
                    next.canConnectShadowWithReasonTo(shadowPrevious))
   }
 
-  func testCanConnectShadowWithReasonTo_InvalidInferiorBlockShadowMismatch() {
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   next.canConnectShadowWithReasonTo(previous))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   previous.canConnectShadowWithReasonTo(next))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   shadowNext.canConnectShadowWithReasonTo(previous))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   previous.canConnectShadowWithReasonTo(shadowNext))
-
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   output.canConnectShadowWithReasonTo(input))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   input.canConnectShadowWithReasonTo(output))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   output.canConnectShadowWithReasonTo(shadowInput))
-    XCTAssertEqual(Connection.CheckResult.ReasonInferiorBlockShadowMismatch,
-                   shadowInput.canConnectShadowWithReasonTo(output))
-  }
-
   func testCanConnectShadowWithReasonTo_InvalidSourceBlockIsNull() {
     next.sourceBlock = nil
     XCTAssertEqual(Connection.CheckResult.ReasonSourceBlockNull,

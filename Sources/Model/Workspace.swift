@@ -192,11 +192,7 @@ Data structure that contains `Block` instances.
           throw BlocklyError(.illegalArgument,
             "Two blocks with the same uuid ('\(block.uuid)') cannot be added into the " +
             "workspace at the same time.")
-        } else if block.shadow && block.topLevel {
-          throw BlocklyError(
-            .illegalState, "A shadow block cannot be added to the workspace as a top-level block.")
         }
-
         newBlocks[block.uuid] = block
       }
 

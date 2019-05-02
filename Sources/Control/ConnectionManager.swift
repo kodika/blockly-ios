@@ -185,9 +185,20 @@ Controller for `Connection` instances, where connections can be separated into g
     var radius = maxRadius
 
     for blockConnection in block.directConnections {
+        var blockConnection = blockConnection
+        if let targetConnection = blockConnection.targetConnection, block.shadow{
+            blockConnection = targetConnection
+        }
+        
       if let compatibleConnection =
         closestConnection(blockConnection, maxRadius: radius, ignoreGroup: group)
       {
+        let compatibleConnectionSourceBlock = compatibleConnection.0.sourceBlock
+        let blockConnectionSourceBlock = blockConnection.sourceBlock
+        
+        if (compatibleConnectionSourceBlock?.shadow ?? false) && (blockConnectionSourceBlock?.shadow ?? false) && blockConnection.connected{
+            continue
+        }
         candidate = (
           moving: blockConnection,
           target: compatibleConnection.0,
@@ -380,7 +391,7 @@ extension ConnectionManager {
     */
     internal func closestConnection(_ connection: Connection, maxRadius: CGFloat, validator:
                                     ConnectionValidator) -> Connection? {
-      if connection.connected {
+      if connection.connected && !(connection.targetBlock?.shadow ?? false){
         // Don't offer to connect when already connected.
         return nil
       }

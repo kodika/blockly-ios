@@ -133,16 +133,6 @@ class BlockTestStrings {
       "<shadow type=\"statement_no_input\" id=\"SHADOW3\" />" +
     "</next>"
 
-  static let NESTED_SHADOW_BAD =
-    "<value name=\"value_input\">" +
-      "<shadow type=\"simple_input_output\" id=\"SHADOW1\">" +
-        "<value name=\"value\">" +
-          "<shadow type=\"simple_input_output\" id=\"SHADOW2\"/>"  +
-          "<block type=\"simple_input_output\" id=\"BLOCK_INNER\"/>"  +
-        "</value>" +
-      "</shadow>" +
-    "</value>"
-
   static let COMMENT_GOOD = "<comment pinned=\"true\" h=\"80\" w=\"160\">Calm</comment>"
   static let COMMENT_NO_TEXT = "<comment pinned=\"true\" h=\"80\" w=\"160\"></comment>"
 

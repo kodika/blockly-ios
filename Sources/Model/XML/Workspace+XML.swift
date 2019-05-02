@@ -45,17 +45,16 @@ extension Workspace {
      malformed data, or contradictory data).
    */
   public func loadBlocks(fromXML xml: AEXMLElement, factory: BlockFactory) throws {
-    if let allBlocksXML = xml["block"].all {
-      var blockTrees = Array<Block.BlockTree>()
-
-      for blockXML in allBlocksXML {
-        let blockTree = try Block.blockTree(fromXML: blockXML, factory: factory)
-        blockTrees.append(blockTree)
-      }
-
-      try addBlockTrees(blockTrees.map({ $0.rootBlock }))
+    let allBlocksXML = (xml["block"].all ?? []) + (xml["shadow"].all ?? [])
+    var blockTrees = Array<Block.BlockTree>()
+    
+    for blockXML in allBlocksXML {
+      let blockTree = try Block.blockTree(fromXML: blockXML, factory: factory)
+      blockTrees.append(blockTree)
     }
-  }
+    
+    try addBlockTrees(blockTrees.map({ $0.rootBlock }))
+    }
 }
 
 // MARK: - XML Serialization

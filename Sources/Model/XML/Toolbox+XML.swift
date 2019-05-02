@@ -146,13 +146,11 @@ extension Toolbox {
     forCategory category: Toolbox.Category, factory: BlockFactory) throws
   {
     switch childNode.name {
-    case "block":
+    case "block","shadow":
       let blockTree = try Block.blockTree(fromXML: childNode, factory: factory)
       try category.addBlockTree(blockTree.rootBlock)
     case "category":
       throw BlocklyError(.xmlParsing, "Subcategories are not supported.")
-    case "shadow":
-      throw BlocklyError(.xmlParsing, "Shadow blocks may not be top level toolbox blocks.")
     case "sep":
       if let gapString = childNode.attributes["gap"],
         let gap = NumberFormatter().number(from: gapString)

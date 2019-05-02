@@ -356,7 +356,7 @@ import Foundation
    this method attempts to reattach it to the end of the inferior connection's block input value
    chain. If unsuccessful, the disconnected block is bumped away.
    */
-  fileprivate func connectValueConnections(superior: Connection, inferior: Connection) throws {
+  public func connectValueConnections(superior: Connection, inferior: Connection) throws {
     let previouslyConnectedBlock = superior.targetBlock
 
     // NOTE: Layouts are automatically re-computed after disconnecting/reconnecting

@@ -91,6 +91,9 @@ import Foundation
       if let blockLayout = currentLayout as? BlockLayout
         , blockLayout.block.draggable
       {
+        if let outputTargetBlock = blockLayout.block.outputConnection?.targetBlock, outputTargetBlock.shadow {
+           return outputTargetBlock.layout
+        }
         return blockLayout
       } else if let blockGroupLayout = layout as? BlockGroupLayout
         , blockGroupLayout.blockLayouts.count > 0 &&
