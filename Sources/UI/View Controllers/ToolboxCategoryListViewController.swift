@@ -319,7 +319,7 @@ extension ToolboxCategoryListViewController: UICollectionViewDelegateFlowLayout 
 
   static let ColorTagViewHeight = CGFloat(8)
   static let LabelInsets = UIEdgeInsetsMake(4, 8, 4, 8)
-  static let CellHeight = CGFloat(48)
+  static let CellHeight = CGFloat(0)
   static let IconSize = CGSize(width: 32, height: 32)
 
   /// The category this cell represents
