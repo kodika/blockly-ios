@@ -185,11 +185,6 @@ Controller for `Connection` instances, where connections can be separated into g
     var radius = maxRadius
 
     for blockConnection in block.directConnections {
-        var blockConnection = blockConnection
-        if let targetConnection = blockConnection.targetConnection, block.shadow{
-            blockConnection = targetConnection
-        }
-        
       if let compatibleConnection =
         closestConnection(blockConnection, maxRadius: radius, ignoreGroup: group)
       {
@@ -333,8 +328,11 @@ extension ConnectionManager {
     // MARK: - Initializers
 
     fileprivate init(ownerBlock: Block?) {
-      self.ownerBlock = ownerBlock
-
+      if ownerBlock?.shadow ?? false{
+        self.ownerBlock = ownerBlock?.directConnections.first?.targetBlock
+      }else{
+        self.ownerBlock = ownerBlock
+      }
       // NOTE: If updating this, also update Connection.OPPOSITE_TYPES array.
       // The arrays are indexed by connection type codes (`connection.type.rawValue`).
       _matchingLists =
