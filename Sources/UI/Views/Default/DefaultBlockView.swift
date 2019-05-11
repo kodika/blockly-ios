@@ -173,14 +173,11 @@ import Foundation
           strokeColor = layout.config.color(for: DefaultLayoutConfig.BlockStrokeDisabledColor)
           fillColor = layout.config.color(for: DefaultLayoutConfig.BlockFillDisabledColor)
         } else {
-          let defaultStrokeColor =
-            layout.config.color(for: DefaultLayoutConfig.BlockStrokeDefaultColor) ?? .clear
-          strokeColor = defaultStrokeColor
-          fillColor = layout.block.color
-
+          strokeColor = layout.block.color.withAlphaComponent(0.1)
           if layout.block.shadow {
-            strokeColor = self.shadowColor(forColor: defaultStrokeColor, config: layout.config)
-            fillColor = self.shadowColor(forColor: layout.block.color, config: layout.config)
+            fillColor = self.opaqueColor(fromColor: layout.block.color, withAlpha: 0.1)
+          }else{
+            fillColor = self.opaqueColor(fromColor: layout.block.color, withAlpha: 0.2)
           }
         }
 
@@ -256,6 +253,19 @@ import Foundation
         self.superview?.bringSubview(toFront: self)
       }
     })
+  }
+  
+  private func opaqueColor(fromColor color: UIColor, withAlpha a: CGFloat) -> UIColor{
+    var red: CGFloat = 0.0
+    var green: CGFloat = 0.0
+    var blue: CGFloat = 0.0
+  
+    color.getRed(&red, green: &green, blue: &blue, alpha: nil)
+  
+    return UIColor(red: (1.0 - a * (1.0-red)),
+           green: (1.0 - a * (1.0-green)),
+           blue: (1.0 - a * (1.0-blue)),
+           alpha: 1.0)
   }
 
   public override func prepareForReuse() {

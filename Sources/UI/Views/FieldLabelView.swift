@@ -67,8 +67,10 @@ View for rendering a `FieldLabelLayout`.
       if flags.intersectsWith(Layout.Flag_NeedsDisplay) {
         let label = self.label
         label.text = fieldLabelLayout.text
-        label.font = fieldLabelLayout.config.font(for: LayoutConfig.GlobalFont)
-        label.textColor = fieldLabelLayout.config.color(for: LayoutConfig.FieldLabelTextColor)
+        
+        let parentBlock = FieldLabelView.parentBlock(of: fieldLabelLayout)
+        label.textColor = parentBlock.color
+        label.font = FieldLabelView.labelFont(fieldLabelLayout: fieldLabelLayout, isShadow: parentBlock.shadow)
       }
     }
   }
@@ -78,6 +80,18 @@ View for rendering a `FieldLabelLayout`.
 
     self.frame = CGRect.zero
     self.label.text = ""
+  }
+    
+  fileprivate static func parentBlock(of fieldLabelLayout: FieldLabelLayout) -> Block {
+    return (fieldLabelLayout.parentLayout!.parentLayout as! DefaultBlockLayout).block
+  }
+    
+  fileprivate static func labelFont(fieldLabelLayout:FieldLabelLayout, isShadow: Bool) -> UIFont {
+    if isShadow{
+      return fieldLabelLayout.config.font(for: LayoutConfig.PopoverTitleFont)
+    }else{
+      return fieldLabelLayout.config.font(for: LayoutConfig.GlobalFont)
+    }
   }
 }
 
@@ -91,7 +105,7 @@ extension FieldLabelView: FieldLayoutMeasurer {
       return CGSize.zero
     }
 
-    let font = layout.config.font(for: LayoutConfig.GlobalFont)
+    let font = FieldLabelView.labelFont(fieldLabelLayout: fieldLabelLayout, isShadow: parentBlock(of: fieldLabelLayout).shadow)
     var size = fieldLabelLayout.text.bky_singleLineSize(forFont: font)
     size.height = max(size.height, layout.config.viewUnit(for: LayoutConfig.FieldMinimumHeight))
     return size
