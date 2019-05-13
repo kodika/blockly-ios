@@ -22,9 +22,14 @@ import Foundation
 @objcMembers open class FieldImageView: FieldView {
   // MARK: - Properties
 
+  public static let imageViewTappedNotification: Notification.Name = Notification.Name(rawValue: "Blockly.FieldImageView.imageViewTappedNotification")
   /// Convenience property for accessing `self.layout` as a `FieldImageLayout`
   open var fieldImageLayout: FieldImageLayout? {
     return layout as? FieldImageLayout
+  }
+
+  private var parentBlock: Block? {
+    return (layout?.parentLayout?.parentLayout as? DefaultBlockLayout)?.block
   }
 
   /// The image to render
@@ -34,9 +39,26 @@ import Foundation
     imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
+    
+    if self.parentBlock?.shadow ?? false{
+      let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(FieldImageView.imageViewTapped))
+      imageView.isUserInteractionEnabled = true
+      imageView.addGestureRecognizer(tapGestRecognizer)
+    }
     return imageView
   }()
 
+  @objc private func imageViewTapped() {
+    if let parentBlock = parentBlock, let mutator = parentBlock.mutator {
+      var userInfo: [AnyHashable : Any] = mutator.toXMLElement().attributes
+      if parentBlock.outputConnection != nil {
+        userInfo["isInput"] = false
+      }else{
+        userInfo["isInput"] = true
+      }
+      NotificationCenter.default.post(name: FieldImageView.imageViewTappedNotification, object: nil, userInfo: userInfo)
+    }
+  }
   // MARK: - Initializers
 
   /// Initializes the image field view.
