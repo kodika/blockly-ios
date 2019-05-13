@@ -50,7 +50,7 @@ Pod::Spec.new do |s|
     'Resources/Localized/**/*.lproj/*']
 
   s.frameworks        = 'WebKit'
-  s.ios.dependency 'AEXML', '~> 4.1.0'
+  s.ios.dependency 'AEXML', '~> 4.4.0'
   # Let Xcode know Blockly uses Swift 4.0 syntax
   s.swift_version = '4.0'
  
