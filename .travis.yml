@@ -2,12 +2,10 @@
 language: objective-c
 matrix:
   include:
-    - osx_image: xcode9
+    - osx_image: xcode10.2
       objective-c: "stable"
 
+before_script:
+  carthage update --cache-builds
 script:
-  xcodebuild test -project Samples/BlocklySample/BlocklySample.xcodeproj  -scheme BlocklyTests
-                  -destination 'platform=iOS Simulator,name=iPhone X,OS=11.0'
-                  -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1'
-                  -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.4'
-                  -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch),OS=9.3'
+  xcodebuild test -project Blockly.xcodeproj -scheme BlocklyTests -destination 'platform=iOS Simulator,name=iPhone 6,OS=12.2'
