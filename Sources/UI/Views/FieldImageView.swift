@@ -39,18 +39,18 @@ import Foundation
     imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
+
+    let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(FieldImageView.imageViewTapped))
+    imageView.isUserInteractionEnabled = true
+    imageView.addGestureRecognizer(tapGestRecognizer)
     
-    if self.parentBlock?.shadow ?? false{
-      let tapGestRecognizer = UITapGestureRecognizer(target: self, action: #selector(FieldImageView.imageViewTapped))
-      imageView.isUserInteractionEnabled = true
-      imageView.addGestureRecognizer(tapGestRecognizer)
-    }
     return imageView
   }()
 
   @objc private func imageViewTapped() {
     if let parentBlock = parentBlock, let mutator = parentBlock.mutator {
       var userInfo: [AnyHashable : Any] = mutator.toXMLElement().attributes
+      userInfo["blockName"] = parentBlock.name
       if parentBlock.outputConnection != nil {
         userInfo["isInput"] = false
       }else{
