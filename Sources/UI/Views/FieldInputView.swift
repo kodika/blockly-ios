@@ -30,6 +30,7 @@ import Foundation
   /// The text field to render
   open fileprivate(set) lazy var textField: InsetTextField = {
     let textField = InsetTextField(frame: CGRect.zero)
+    textField.backgroundColor = UIColor.white
     textField.delegate = self
     textField.borderStyle = .roundedRect
     textField.autoresizingMask = [.flexibleHeight, .flexibleWidth]
