@@ -115,6 +115,7 @@ public protocol DropdownOptionsViewControllerDelegate: class {
   {
     let cell = tableView.dequeueReusableCell(
       withIdentifier: cellReuseIdentifier, for: indexPath)
+    cell.backgroundColor = UIColor.white
     cell.accessoryType = (selectedIndex == (indexPath as NSIndexPath).row ? .checkmark : .none)
     cell.selectionStyle = .default
     cell.textLabel?.font = textLabelFont
