@@ -81,6 +81,7 @@ public protocol DropdownOptionsViewControllerDelegate: class {
   // MARK: - Super
 
   open override func viewDidLoad() {
+    self.view.backgroundColor = UIColor.white
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
     tableView.reloadData()
   }
