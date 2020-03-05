@@ -52,7 +52,7 @@ import Foundation
   }()
   /// Accessor for the workspace view controller delegate, so touch functionality can be set easily
   public var delegate: WorkspaceViewControllerDelegate? {
-    set { self.workspaceViewController.delegate = delegate }
+    set { self.workspaceViewController.delegate = newValue }
     get { return self.workspaceViewController.delegate }
   }
   /// The scroll view from the toolbox workspace's view controller.
