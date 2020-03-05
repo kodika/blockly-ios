@@ -81,6 +81,7 @@ public protocol DropdownOptionsViewControllerDelegate: class {
   // MARK: - Super
 
   open override func viewDidLoad() {
+    self.view.backgroundColor = UIColor.white
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
     tableView.reloadData()
   }
@@ -115,6 +116,7 @@ public protocol DropdownOptionsViewControllerDelegate: class {
   {
     let cell = tableView.dequeueReusableCell(
       withIdentifier: cellReuseIdentifier, for: indexPath)
+    cell.backgroundColor = UIColor.white
     cell.accessoryType = (selectedIndex == (indexPath as NSIndexPath).row ? .checkmark : .none)
     cell.selectionStyle = .default
     cell.textLabel?.font = textLabelFont
